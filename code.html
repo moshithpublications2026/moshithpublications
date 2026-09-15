@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moshith Publications — Books, Journals &amp; Magazines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2A44;
+    --ink-soft:#2E4064;
+    --brass:#B8873F;
+    --brass-deep:#8C6428;
+    --paper:#F3EFE4;
+    --paper-deep:#EAE3D2;
+    --charcoal:#221F1A;
+    --rule:#D9D2C0;
+    --maroon:#7A2E2E;
+    --max: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--charcoal);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    margin:0;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, #E8D2B0 0%, #D8B583 40%, #C89B5E 70%, #D8B583 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 10px rgba(184,140,80,0.35);
+    border-bottom:1px solid #B08850;
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px; max-width:var(--max); margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand-mark{
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.5rem;
+    letter-spacing:0.01em;
+    color:#5A3A1A;
+    text-shadow:0 1px 0 rgba(255,255,255,0.5);
+  }
+  .brand-sub{font-size:0.7rem; color:var(--brass-deep); font-weight:500;}
+  nav.links{display:flex; gap:30px; font-size:0.92rem; font-weight:500;}
+  nav.links a{text-decoration:none; color:#6B4423; border-bottom:1px solid transparent; padding-bottom:2px; transition:border-color .2s, color .2s;}
+  nav.links a:hover{border-color:#5A3A1A; color:#5A3A1A;}
+  .menu-btn{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+  .menu-btn span{display:block; width:22px; height:2px; background:#6B4423; margin:5px 0;}
+  @media (max-width:860px){
+    nav.links{display:none; position:absolute; top:100%; left:0; right:0; background:#E8D2B0; flex-direction:column; gap:0; border-bottom:1px solid #B08850;}
+    nav.links.open{display:flex;}
+    nav.links a{padding:14px 32px; border-bottom:1px solid rgba(90,58,26,0.15);}
+    .menu-btn{display:block;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{padding:88px 0 70px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  .eyebrow-line{display:flex; align-items:center; gap:12px; margin-bottom:22px;}
+  .eyebrow-line .rule{width:36px; height:1px; background:var(--brass-deep);}
+  .eyebrow-line span{font-size:0.82rem; color:var(--brass-deep); font-weight:500;}
+  .hero h1{font-size:clamp(2.3rem, 4.6vw, 3.6rem); font-weight:600; line-height:1.08; letter-spacing:-0.01em;}
+  .hero p.lead{margin-top:22px; font-size:1.08rem; max-width:46ch; color:var(--ink-soft);}
+  .hero-ctas{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:13px 26px; border-radius:2px; font-weight:600; font-size:0.92rem;
+    text-decoration:none; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--ink); color:var(--paper);}
+  .btn-primary:hover{background:var(--ink-soft);}
+  .btn-outline{border:1px solid var(--ink); color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--paper);}
+
+  .spine-art{position:relative; height:340px; display:flex; align-items:flex-end; justify-content:center; gap:10px;}
+  .spine{border-radius:2px 2px 0 0; box-shadow:0 10px 24px rgba(27,42,68,0.18); position:relative; display:flex; align-items:flex-end; justify-content:center; padding-bottom:14px;}
+  .spine span{writing-mode:vertical-rl; font-family:'Fraunces',serif; font-size:0.72rem; letter-spacing:0.04em; color:rgba(255,255,255,0.85); transform:rotate(180deg);}
+  @media (max-width:900px){ .spine-art{height:220px; margin-top:20px;} }
+
+  /* ---------- Section shell with volume index ---------- */
+  section.volume{padding:78px 0; border-top:1px solid var(--rule);}
+  .vol-head{display:grid; grid-template-columns:120px 1fr; gap:24px; margin-bottom:44px;}
+  @media (max-width:640px){ .vol-head{grid-template-columns:1fr;} }
+  .vol-num{font-family:'Fraunces',serif; font-size:2.6rem; color:var(--brass); font-weight:600; line-height:1;}
+  .vol-num sup{font-size:1rem; color:var(--brass-deep); font-weight:500;}
+  .vol-title h2{font-size:1.9rem; font-weight:600; margin-bottom:10px;}
+  .vol-title p{max-width:62ch; color:var(--ink-soft); font-size:0.98rem;}
+
+  /* ---------- Books ---------- */
+  .book-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule);}
+  @media (max-width:860px){ .book-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .book-grid{grid-template-columns:1fr;} }
+  .book-card{background:var(--paper); padding:28px 26px;}
+  .book-card .tag{font-size:0.72rem; color:var(--brass-deep); font-weight:600; text-transform:uppercase; letter-spacing:0.06em;}
+  .book-card h3{font-size:1.15rem; margin-top:8px; font-weight:600;}
+  .book-card p{font-size:0.9rem; color:var(--ink-soft); margin-top:8px;}
+  .book-card ul{list-style:none; margin:14px 0 0; padding:0; border-top:1px solid var(--rule); padding-top:12px;}
+  .book-card ul li{font-size:0.88rem; color:var(--ink); padding:4px 0; position:relative; padding-left:14px;}
+  .book-card ul li::before{content:"—"; position:absolute; left:0; color:var(--brass-deep);}
+
+  /* ---------- Journals ---------- */
+  .journal-list{border-top:1px solid var(--rule);}
+  .journal-row{display:grid; grid-template-columns:1fr 140px; gap:20px; padding:22px 0; border-bottom:1px solid var(--rule); align-items:center;}
+  @media (max-width:760px){ .journal-row{grid-template-columns:1fr auto; gap:6px; padding:18px 0;} }
+  .journal-row .discipline{font-size:1.05rem; color:var(--ink); font-weight:600;}
+  .journal-row .freq{font-size:0.85rem; color:var(--brass-deep); font-weight:600; text-align:right;}
+  @media (max-width:760px){ .journal-row .freq{text-align:right;} }
+
+  /* ---------- Magazines ---------- */
+  .mag-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+  @media (max-width:860px){ .mag-grid{grid-template-columns:repeat(2,1fr);} }
+  .mag-cover{
+    aspect-ratio:3/4; border-radius:2px; display:flex; flex-direction:column; justify-content:space-between;
+    padding:16px; color:var(--paper); box-shadow:0 8px 20px rgba(27,42,68,0.15);
+  }
+  .mag-cover .m-top{font-size:0.68rem; letter-spacing:0.05em; opacity:0.85;}
+  .mag-cover h3{color:var(--paper); font-size:1.15rem; line-height:1.15;}
+  .mag-cover .m-bottom{font-size:0.72rem; opacity:0.85;}
+
+  /* ---------- People (Directors / Editors) ---------- */
+  .people-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:34px;}
+  @media (max-width:860px){ .people-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .people-grid{grid-template-columns:1fr !important;} }
+  .person{display:flex; flex-direction:column; gap:14px;}
+  .avatar{
+    width:100%; aspect-ratio:1/1; border-radius:2px; background:var(--ink);
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+  }
+  .avatar .initials{font-family:'Fraunces',serif; font-size:2.6rem; color:rgba(243,239,228,0.9); font-weight:600;}
+  .avatar .photo-note{
+    position:absolute; bottom:0; left:0; right:0; background:rgba(27,42,68,0.85); color:var(--paper);
+    font-size:0.68rem; padding:6px 10px; text-align:center; letter-spacing:0.02em;
+  }
+  .person h3{font-size:1.05rem; font-weight:600;}
+  .person .role{font-size:0.82rem; color:var(--brass-deep); font-weight:600; margin-top:2px;}
+  .person p.bio{font-size:0.88rem; color:var(--ink-soft); margin-top:4px;}
+
+  /* ---------- Contact / Footer ---------- */
+  footer{background:var(--ink); color:var(--paper); padding:70px 0 30px; margin-top:0;}
+  .footer-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px;}
+  @media (max-width:760px){ .footer-grid{grid-template-columns:1fr; gap:34px;} }
+  footer h3{color:var(--paper); font-size:1.3rem;}
+  footer p{color:rgba(243,239,228,0.72); font-size:0.92rem; margin-top:12px; max-width:40ch;}
+  .foot-col h4{font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--brass); font-weight:600; margin-bottom:14px;}
+  .foot-col a, .foot-col div{display:block; color:rgba(243,239,228,0.82); font-size:0.92rem; text-decoration:none; margin-bottom:9px;}
+  .foot-col a:hover{color:var(--paper);}
+  .foot-bottom{border-top:1px solid rgba(243,239,228,0.15); margin-top:50px; padding-top:22px; font-size:0.8rem; color:rgba(243,239,228,0.55); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+
+  .placeholder-flag{
+    display:inline-block; margin-top:16px; font-size:0.78rem; background:rgba(184,135,63,0.15);
+    color:var(--brass-deep); border:1px solid rgba(184,135,63,0.4); padding:8px 12px; border-radius:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand">
+      <span class="brand-mark">Moshith Publications</span>
+    </div>
+    <nav class="links" id="navLinks">
+      <a href="#books">Books</a>
+      <a href="#journals">Journals</a>
+      <a href="#magazines">Magazines</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#editorial">Editorial Board</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line"><div class="rule"></div><span>Books · Journals · Magazines</span></div>
+      <h1>Publishing that prepares minds across every discipline.</h1>
+      <p class="lead">Moshith Publications produces exam-ready books for competitive examinations, peer-driven journals spanning the sciences and humanities, and magazines written for curious readers — all under one editorial roof.</p>
+      <div class="hero-ctas">
+        <a href="#books" class="btn btn-primary">Browse our books</a>
+        <a href="#journals" class="btn btn-outline">Explore journals</a>
+      </div>
+    </div>
+    <div class="spine-art" aria-hidden="true">
+      <div class="spine" style="width:52px; height:280px; background:var(--ink);"><span>COMPETITIVE EXAMS</span></div>
+      <div class="spine" style="width:48px; height:240px; background:var(--brass-deep);"><span>SCIENCES</span></div>
+      <div class="spine" style="width:52px; height:300px; background:var(--maroon);"><span>HUMANITIES</span></div>
+      <div class="spine" style="width:44px; height:210px; background:var(--ink-soft);"><span>MANAGEMENT</span></div>
+      <div class="spine" style="width:50px; height:260px; background:var(--brass);"><span>LAW &amp; POLITY</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section class="volume" id="books">
+  <div class="wrap">
+    <div class="vol-head">
+      <div class="vol-num">01<sup>/03</sup></div>
+      <div class="vol-title">
+        <h2>Books for competitive examinations</h2>
+        <p>Multidisciplinary preparation guides, revision volumes and previous-year solved papers, built for the exams our readers are actually sitting for.</p>
+      </div>
+    </div>
+    <div class="book-grid">
+      <div class="book-card">
+        <div class="tag">Civil Services</div><h3>UPSC &amp; State PSC</h3>
+        <p>Prelims, Mains and interview guidance across GS papers, essay and optional subjects.</p>
+        <ul>
+          <li>General Studies Prelims Manual (Vol. I–IV)</li>
+          <li>Indian Polity &amp; Governance for Civil Services</li>
+          <li>Ethics, Integrity &amp; Aptitude — Mains Paper IV</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <div class="tag">Banking &amp; Insurance</div><h3>IBPS, SBI &amp; RBI</h3>
+        <p>Quantitative aptitude, reasoning, English and banking awareness, exam-pattern aligned.</p>
+        <ul>
+          <li>Quantitative Aptitude for Bank PO &amp; Clerk</li>
+          <li>Banking &amp; Financial Awareness Digest</li>
+          <li>Reasoning &amp; English for IBPS/SBI Exams</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <div class="tag">Staff Selection</div><h3>SSC CGL, CHSL &amp; MTS</h3>
+        <p>Tier-wise practice sets with detailed solutions and time-bound mock tests.</p>
+        <ul>
+          <li>SSC CGL Tier I &amp; II Complete Guide</li>
+          <li>General Awareness for SSC Exams</li>
+          <li>SSC CHSL/MTS Solved Papers (10-Year)</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <div class="tag">Engineering &amp; Medical</div><h3>JEE &amp; NEET</h3>
+        <p>Concept-first physics, chemistry and biology volumes with chapter-wise problem banks.</p>
+        <ul>
+          <li>Physics for JEE Main &amp; Advanced (Vol. I–II)</li>
+          <li>NEET Biology — Botany &amp; Zoology Handbook</li>
+          <li>Organic &amp; Inorganic Chemistry Problem Bank</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <div class="tag">Teaching</div><h3>CTET, TET &amp; UGC-NET</h3>
+        <p>Pedagogy, child development and subject-specific papers for aspiring educators.</p>
+        <ul>
+          <li>Child Development &amp; Pedagogy Simplified</li>
+          <li>UGC-NET Paper I — Teaching &amp; Research Aptitude</li>
+          <li>State TET Solved Question Bank</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <div class="tag">Defence &amp; Police</div><h3>NDA, CDS &amp; State Police</h3>
+        <p>Physical standards guidance alongside general knowledge and reasoning modules.</p>
+        <ul>
+          <li>NDA &amp; CDS Entrance Complete Manual</li>
+          <li>General Knowledge for Defence Exams</li>
+          <li>State Police Constable &amp; SI Guide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNALS -->
+<section class="volume" id="journals">
+  <div class="wrap">
+    <div class="vol-head">
+      <div class="vol-num">02<sup>/03</sup></div>
+      <div class="vol-title">
+        <h2>Journals across disciplines</h2>
+        <p>Peer-reviewed research published on a regular cycle, welcoming submissions from scholars, educators and practitioners.</p>
+      </div>
+    </div>
+    <div class="journal-list">
+      <div class="journal-row">
+        <div class="discipline">Humanities</div>
+        <div class="freq">Quarterly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Science</div>
+        <div class="freq">Bi-monthly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Engineering</div>
+        <div class="freq">Bi-monthly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Management</div>
+        <div class="freq">Quarterly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Education</div>
+        <div class="freq">Quarterly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Law &amp; Governance</div>
+        <div class="freq">Half-yearly</div>
+      </div>
+      <div class="journal-row">
+        <div class="discipline">Medical Sciences</div>
+        <div class="freq">Quarterly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAGAZINES -->
+<section class="volume" id="magazines">
+  <div class="wrap">
+    <div class="vol-head">
+      <div class="vol-num">03<sup>/03</sup></div>
+      <div class="vol-title">
+        <h2>Magazines for curious readers</h2>
+        <p>Monthly and quarterly reads that bring current affairs, science and culture to a general audience.</p>
+      </div>
+    </div>
+    <div class="mag-grid">
+      <div class="mag-cover" style="background:var(--ink);"><div class="m-top">CURRENT AFFAIRS</div><h3>The Moshith Digest</h3><div class="m-bottom">Quarterly</div></div>
+      <div class="mag-cover" style="background:var(--maroon);"><div class="m-top">SCIENCE &amp; IDEAS</div><h3>Inquiry</h3><div class="m-bottom">Quarterly</div></div>
+      <div class="mag-cover" style="background:var(--brass-deep);"><div class="m-top">CAMPUS &amp; CAREERS</div><h3>Aspire</h3><div class="m-bottom">Quarterly</div></div>
+      <div class="mag-cover" style="background:var(--ink-soft);"><div class="m-top">ARTS &amp; CULTURE</div><h3>Verse &amp; Vantage</h3><div class="m-bottom">Quarterly</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADERSHIP -->
+<section class="volume" id="leadership">
+  <div class="wrap">
+    <div class="vol-head">
+      <div class="vol-num">—</div>
+      <div class="vol-title">
+        <h2>Leadership</h2>
+        <p>The people setting the direction for Moshith Publications.</p>
+        <span class="placeholder-flag">Photos pending — replace the initials below with director photos when ready</span>
+      </div>
+    </div>
+    <div class="people-grid" style="grid-template-columns:repeat(2,1fr); max-width:760px;">
+      <div class="person">
+        <div class="avatar"><div class="initials">NS</div><div class="photo-note">Add director photo here</div></div>
+        <h3>Dr. N. Shanmuganathan</h3>
+        <div class="role">Director</div>
+        <p class="bio">M.E., M.B.A., Ph.D.</p>
+      </div>
+      <div class="person">
+        <div class="avatar"><div class="initials">BP</div><div class="photo-note">Add director photo here</div></div>
+        <h3>Ms. B. Pavitha</h3>
+        <div class="role">Director</div>
+        <p class="bio">B.E.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section class="volume" id="editorial">
+  <div class="wrap">
+    <div class="vol-head">
+      <div class="vol-num">—</div>
+      <div class="vol-title">
+        <h2>Editorial board</h2>
+        <p>The editors who review, shape and sign off every title before it reaches print.</p>
+        <span class="placeholder-flag">Placeholder — replace names, roles and photos below with your editors' details</span>
+      </div>
+    </div>
+    <div class="people-grid">
+      <div class="person">
+        <div class="avatar" style="background:var(--brass-deep);"><div class="initials">EN</div><div class="photo-note">Add editor photo here</div></div>
+        <h3>[Editor Name]</h3>
+        <div class="role">Editor-in-Chief</div>
+        <p class="bio">Oversees editorial standards across books, journals and magazines.</p>
+      </div>
+      <div class="person">
+        <div class="avatar" style="background:var(--brass-deep);"><div class="initials">EN</div><div class="photo-note">Add editor photo here</div></div>
+        <h3>[Editor Name]</h3>
+        <div class="role">Senior Editor — Competitive Exams</div>
+        <p class="bio">Leads content and accuracy review for exam-preparation titles.</p>
+      </div>
+      <div class="person">
+        <div class="avatar" style="background:var(--brass-deep);"><div class="initials">EN</div><div class="photo-note">Add editor photo here</div></div>
+        <h3>[Editor Name]</h3>
+        <div class="role">Editor — Journals</div>
+        <p class="bio">Manages the peer-review pipeline across all journal titles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="wrap footer-grid">
+    <div>
+      <h3>Moshith Publications</h3>
+      <p>Books for competitive examinations, journals across disciplines and magazines for general readers — published with the same editorial care.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Get in touch</h4>
+      <a href="mailto:moshithpublications@gmail.com">moshithpublications@gmail.com</a>
+      <a href="tel:+910000000000">+91 00000 00000</a>
+      <div>[Office address here]</div>
+    </div>
+    <div class="foot-col">
+      <h4>Explore</h4>
+      <a href="#books">Books</a>
+      <a href="#journals">Journals</a>
+      <a href="#magazines">Magazines</a>
+      <a href="#editorial">Editorial board</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <div>© <span id="year"></span> Moshith Publications. All rights reserved.</div>
+    <div>Built for readers, exam aspirants and researchers alike.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+</script>
+
+</body>
+</html>
